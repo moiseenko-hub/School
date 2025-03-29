@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProblemMinimalApi.Controllers;
 using ProblemMinimalApi.DatabaseAccessLayer;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,48 +24,22 @@ builder.Services.AddDbContext<ProblemDbContext>( o => o.UseSqlServer(
         ProblemDbContext.CONNECTION_STRING
     ));
 
+builder.Services.AddScoped<ProblemController>();
+
 var app = builder.Build();
 app.UseCors();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", (ProblemController problemController) => problemController.Index());
+// Почему не работает с Post в браузере?
+app.MapPost("/addProblem", (ProblemController problemController, string name, string description, string theme) =>
+    problemController.AddProblem(name, description, theme));
 
-app.MapPost("/addProblem", (ProblemDbContext dbContext,string name, string description,string theme) => {
-    var problem = new ProblemData()
-    {
-        Name = name,
-        Description = description,
-        Theme = theme
-    };
-    dbContext.Add(problem);
-    dbContext.SaveChanges();
-    return Results.Ok(problem);
-});
+app.MapGet("/problems", (ProblemController problemController) => problemController.GetProblems());
 
-app.MapGet("/problems", (ProblemDbContext dbContext) =>
-{
-    var problems = dbContext.Problems.ToList();
-    return problems;
-});
+app.MapPut("/problems/edit", (ProblemController problemController,int id, string name, string description, string theme) =>
+    problemController.UpdateProblem(id, name, description, theme));
 
-app.MapPut("/problems/edit", (ProblemDbContext dbContext,int id, string name, string description, string theme) =>
-{
-    var problem = new ProblemData()
-    {
-        Id = id,
-        Name = name,
-        Description = description,
-        Theme = theme
-    };
-    dbContext.Update(problem);
-    dbContext.SaveChanges();
-});
-
-app.MapDelete("/problems", (ProblemDbContext dbContext,int id) =>
-{
-    var problem = dbContext.Problems.SingleOrDefault(p => p.Id == id);
-    dbContext.Problems.Remove(problem);
-    dbContext.SaveChanges();
-});
+app.MapDelete("/problems", (ProblemController problemController,int id) => problemController.DeleteProblem(id));
 
 app.UseSwagger();
 app.UseSwaggerUI();

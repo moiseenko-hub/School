@@ -7,6 +7,7 @@ using StoreData.Repostiroties;
 using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Middlewares;
+using WebStoryFroEveryting.Reflections;
 using WebStoryFroEveryting.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,7 @@ builder.Services
         options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 //builder.Services.AddScoped<LessonRepository>();
 
-builder.Services.AddScoped<LessonRepository>();
+/*builder.Services.AddScoped<LessonRepository>();
 builder.Services.AddScoped<LessonCommentRepository>();
 builder.Services.AddScoped<BanWordRepository>();
 builder.Services.AddScoped<BannedUserRepository>();
@@ -36,11 +37,12 @@ builder.Services.AddScoped<MessageRepository>();
 builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<SchoolUserRepository>();
-builder.Services.AddScoped<SchoolRoleRepository>();
+builder.Services.AddScoped<SchoolRoleRepository>();*/
 builder.Services.AddScoped<SchoolAuthService>();
 
 builder.Services.AddHttpContextAccessor();
-
+var reflectionRepositories = new ReflectionRepositories();
+reflectionRepositories.AddReflectionRepositories(builder.Services);
 
 
 

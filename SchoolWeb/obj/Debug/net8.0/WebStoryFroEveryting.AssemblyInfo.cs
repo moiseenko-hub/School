@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebStoryFroEveryting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ec73c382fb93adc915618348b033d57d506ef21")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebStoryFroEveryting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebStoryFroEveryting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
