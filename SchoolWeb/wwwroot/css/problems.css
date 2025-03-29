@@ -1,0 +1,45 @@
+﻿
+.problems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.problem {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+.name-container, .description-container, .theme-container {
+    margin-bottom: 15px;
+}
+
+.name, .description, .theme {
+    font-family: Arial, sans-serif;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 16px;
+    color: #666;
+}
+
+.theme {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Дополнительные стили для улучшения читаемости */
+.problem p {
+    word-wrap: break-word;
+}

@@ -1,0 +1,46 @@
+@using Enums.SchoolUser
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using StoreData.Services
+@model WebStoryFroEveryting.Models.SchoolUser.SchoolRolesViewModel
+
+@{
+    Layout = "_LayoutLessons";
+    var permissions = Enum.GetValues(typeof(SchoolPermission));
+}
+
+<div class="roles">
+    @foreach (var role in Model.Roles)
+    {
+        <div class="role" user-role-id = "@role.Id">
+            <h2>@role.Name</h2>
+            <form method="post" action="/SchoolRoles/Update">
+                <input type="hidden" value="@role.Id" name="roleId" />
+                
+                @foreach (SchoolPermission permission in permissions)
+                {
+                    if (permission != SchoolPermission.None)
+                    {
+                        <label>
+                            @permission.GetDisplayName()
+                            <input type="checkbox"
+                                   class="permissions"
+                                   name="permissions"
+                                   value="@((int)permission)"
+                                   checked="@(role.Permissions.HasFlag(permission))" />
+                        </label>
+                    }
+                }
+                
+                <button type="submit" class="role-update-submit">Save</button>
+            </form>
+            <a href="/SchoolRoles/Delete?roleId=@role.Id">Delete</a>
+        </div>
+    }
+</div>
+
+<div class="create-role-container">
+    <form method="post" action="/SchoolRoles/Add">
+        <input name="roleName" placeholder="Enter new role name" />
+        <button type="submit">Create role</button>
+    </form>
+</div>

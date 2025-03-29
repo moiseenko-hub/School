@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_LayoutLessons";
+}
+@using WebStoryFroEveryting.Models.Lessons
+@using WebStoryFroEveryting.Controllers
+@model List<LessonViewModel>
+
+@section Styles{
+      <link href="css/Lessons/lessons.css" rel="stylesheet" />
+}
+<div class="lessons-container">
+    @foreach (var lesson in @Model)
+        {
+            <div class="lesson">
+                <div class="image-container">
+                    <img src="@lesson.Preview"/>
+                </div>
+                <div class="lesson-title">@lesson.Title</div>
+                <div class="button">
+                    @Html.ActionLink("Подробнее...", "Details", "Lessons",new {id = @lesson.Id})
+                </div>
+                
+            </div>
+        }
+</div>

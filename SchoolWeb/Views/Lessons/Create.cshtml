@@ -1,0 +1,36 @@
+@using StoreData.Models
+@using Microsoft.EntityFrameworkCore.Query.Internal
+@using Enums.Lesson
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebStoryFroEveryting.Models.Lessons.LessonViewModel
+
+@{
+    Layout = "_LayoutLessons";
+}
+
+@section Styles{
+    <link href="~/css/Lessons/create.css" rel="stylesheet" />
+}
+<div class="form-container">
+    <form method="post" action="/Lessons/Create">
+        <div>
+            @Html.TextBoxFor(x => x.Title, new { placeholder = "Заголовок" })
+                
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Source, new { placeholder = "Ссылка на видео" })
+            @Html.ValidationMessageFor(x => x.Source)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
+            @Html.ValidationMessageFor(x => x.Preview)
+        </div>
+        <div>
+            @Html.DropDownListFor(x => x.Level, Html.GetEnumSelectList<Level>(), "Выберите уровень");
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+</div>
+

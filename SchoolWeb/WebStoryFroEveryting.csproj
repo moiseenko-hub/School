@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WebStoryFroEveryting</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreData\StoreData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\SchoolRoles\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PurchaseFilms\CreateFilms.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PurchaseFilms\CreatePurchaseFilms.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\PurchaseFilms\DescriptionFilm.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\GamingDevice\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\GamingDevice\GetGamingDevices.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\GamingDevice\ReviewForGamingDevice.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\AnimeGirl\CommentForGirl.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\AnimeGirl\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\AnimeGirl\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Aromatherapy\AromatherapyIndex.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Auth\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Auth\Registration.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Jerseys\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Jerseys\Detail.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Jerseys\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Jerseys\JerseysError.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MagicItem\CommentForMagicItem.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MagicItem\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MagicItem\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MobilePhone\CreateOrderMobilePhone.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Singer\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Singer\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SweetsStore\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\SweetsStore\CreateOrderForSweets.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\Roles.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\AnimeGirl\animeGirl.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\AnimeGirl\animeGirlCreate.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\AnimeGirl\animeGirlSpeical.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\AnimeGirl\animeGirlWithComments.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Auth\registration.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\FootballPlayer\footballPlayer.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\FootballPlayer\footballPlayerCreate.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\FootballPlayer\footballPlayerSpeical.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\FootballPlayer\footballPlayerWithDescription.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Jerseys\Jerseys.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\MobilePhone\mobile.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\MobilePhone\mobileSpecial.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Singer\Singer.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\Singer\SingerSpecial.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\UnderwaterHunter\commentHunterForm.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\UnderwaterHunter\hunterForm.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\UnderwaterHunter\previewHunterCreate.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\Player\create.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\Player\description.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localizations\Home.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Home.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localizations\Home.En.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Home.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Home.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localizations\Home.Ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\avatars\" />
+  </ItemGroup>
+
+</Project>

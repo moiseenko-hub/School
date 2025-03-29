@@ -1,0 +1,26 @@
+
+@model WebStoryFroEveryting.Models.SchoolAuth.SchoolAuthViewModel
+
+@{
+    Layout = "_LayoutLessons";
+}
+@if (ViewData.ModelState.ContainsKey("NotFound") && ViewData.ModelState["NotFound"].Errors.Count > 0)
+{
+    <div class="text-danger">
+        @ViewData.ModelState["NotFound"].Errors[0].ErrorMessage
+    </div>
+}
+
+<form method="post" action="/SchoolAuth/Login">
+    <div>
+        @Html.TextBoxFor(x => x.Username, new { placeholder = "UserName", required = true })
+        @Html.ValidationMessageFor(x => x.Username);
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @type = "password", required = true })
+        @Html.ValidationMessageFor(x => x.Password);
+    </div>
+    <div>
+        <button type="submit">Логин</button>
+    </div>
+</form>

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_LayoutLessons";
+}
+
+@section Styles{
+    <link href="~/css/problems.css" rel="stylesheet" />
+    <script src="/js//Problem/index.js"></script>
+}
+
+<div class="problems">
+    <div class="problem template">
+        <div class="name-container">
+            <p class="name"></p>
+        </div>
+        <div class="description-container">
+            <p class="description"></p>
+        </div>
+        <div class="theme-container">
+            <p class="theme"></p>
+        </div>
+      
+    </div>
+</div>
+
+<div class="new-problem">
+    <input class="name" name = "name"/>
+    <input class="description" name = "description"/>
+    <input class="theme" name = "theme"/>
+    <button class="new-problem-button">Отправить</button>
+</div>

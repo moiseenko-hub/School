@@ -1,0 +1,15 @@
+﻿@using WebStoryFroEveryting.Models.SchoolUser
+@model ProfileViewModel
+@{
+    Layout = "_LayoutLessons";
+}
+@section Styles{
+    <link href="~/css/profile.css" rel="stylesheet" />
+}
+<div class="profile">
+    <img src="/avatars/avatar-@(Model.UserId).jpg" class="avatar" />
+    <form method="post" action="/SchoolUser/UpdateAvatar" enctype="multipart/form-data">
+        <input type="file" name="avatar" />
+        <button type="submit">Обновить аватарку</button>
+    </form>
+</div>

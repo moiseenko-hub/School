@@ -1,0 +1,28 @@
+@model List<WebStoryFroEveryting.Models.Lessons.SchoolUserViewModel>
+
+@{
+    Layout = "_LayoutLessons";
+}
+
+<div class="users">
+    @foreach (var user in Model)
+    {
+        <div class="user">
+            @user.Username
+            <form method="post" action="/SchoolUser/UpdateUserRole">
+                <input type="hidden" name="id" value="@user.Id" />
+                <select name="roleId">
+                    @foreach (var role in @user.Roles.Roles)
+                    {
+                        <option value="@role.Id"
+                                selected=@(user.Role.Id == role.Id ? "selected" : null )>
+                            @role.Name
+                        </option>
+                    }
+                </select>
+                <button type="submit">Обновить</button>
+            </form>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,19 @@
+@model List<WebStoryFroEveryting.Models.Lessons.PotentialBanUserViewModel>
+
+@{
+    Layout = "_LayoutLessons";
+}
+
+@foreach (var user in @Model)
+{
+    <div>@user.Id</div>
+    <div>@user.Email</div>
+    <div>@user.CommentDescription</div>
+    <div>
+        <form asp-action="BanUser" method="post">
+                    <input type="hidden" name="userId" value="@user.Id" />
+                    <button type="submit">Забанить</button>
+                </form>
+    </div>
+}
+

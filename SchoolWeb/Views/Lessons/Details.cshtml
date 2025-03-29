@@ -1,0 +1,46 @@
+@inject SchoolAuthService authService
+@{
+    Layout = "_LayoutLessons";
+}
+
+@using WebStoryFroEveryting.Services
+@model WebStoryFroEveryting.Models.Lessons.LessonWithCommentViewModel
+
+@section Styles{
+    <link href="~/css/Lessons/details.css" rel="stylesheet" />
+}
+
+<div class="lesson-details">
+    <div class="lesson-details-button">
+        <iframe width="560" height="315" src=@Model.Source title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="lesson-details-title">@Model.Title</div>
+    
+    <div class="action-buttons">
+        <a href="@Url.Action("Remove", "Lessons", new {id = @Model.Id})"
+           onclick='return confirm("Вы уверены?");'
+           class="btn-remove">Удалить</a>
+        <a href="@Url.Action("Update", "Lessons", new {id = @Model.Id})"
+           class="btn-edit">Изменить</a>
+    </div>
+
+</div>
+
+    
+<div class="comments-section" data-lesson-id = "@Model.Id" data-user-id = "@Model.IdCurrentUser">
+    <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id" asp-route-userId="@Model.IdCurrentUser"  class="comment-form">
+        <textarea name="description" placeholder="Ваш комментарий" id="description"></textarea>
+        <button type="submit" id="comment-submit">Создать</button>
+    </form>
+    <div class="comments-list">
+        @foreach (var comment in @Model.Comments)
+        {
+            <div class="comment-item">
+                <div class="comment-description">@comment.Username</div>
+                <div class="comment-description">@comment.Description</div>
+                <div class="comment-created">@comment.Created.ToString("g")</div>
+            </div>
+        }
+    </div>
+</div>
+
