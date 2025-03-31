@@ -1,4 +1,6 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using ProblemMinimalApi.Controllers;
 using ProblemMinimalApi.DatabaseAccessLayer;
@@ -29,7 +31,30 @@ builder.Services.AddScoped<ProblemController>();
 var app = builder.Build();
 app.UseCors();
 
-app.MapGet("/", (ProblemController problemController) => problemController.Index());
+app.MapGet("/api-docs", (EndpointDataSource dataSource) =>
+{
+    var endpoints = dataSource.Endpoints
+        .OfType<RouteEndpoint>()
+        .Select(endpoint =>
+        {
+            var methodInfo = endpoint.Metadata.OfType<MethodInfo>().FirstOrDefault();
+            var parameters = methodInfo?.GetParameters()
+                .Select(p => new { Name = p.Name, Type = p.ParameterType.Name })
+                .ToList();
+
+            return new
+            {
+                Route = endpoint.RoutePattern.RawText,
+                Methods = endpoint.Metadata.OfType<HttpMethodMetadata>().FirstOrDefault()?.HttpMethods,
+                Parameters = parameters,
+                ReturnType = methodInfo?.ReturnType.Name
+            };
+        });
+
+    return Results.Json(endpoints);
+});
+
+app.MapGet("/", () => "Hello");
 // Почему не работает с Post в браузере?
 app.MapPost("/addProblem", (ProblemController problemController, string name, string description, string theme) =>
     problemController.AddProblem(name, description, theme));
