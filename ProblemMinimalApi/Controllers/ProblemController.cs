@@ -13,30 +13,6 @@ public class ProblemController
         _context = context;
     }
 
-    public List<MethodData> Index()
-    {
-        var methods = this.GetType().GetMethods(BindingFlags.Public |
-                                                BindingFlags.Instance |
-                                                BindingFlags.DeclaredOnly);
-        var result = methods
-            .Select(x => new MethodData()
-            {
-                ReturnType = x.ReturnType.IsGenericType 
-                    ? $"{x.ReturnType.Name}<{string.Join(", ", x.ReturnType.GetGenericArguments().Select(t => t.Name))}>"
-                    : x.ReturnType.Name,
-                Name = x.Name,
-                Params = x.GetParameters()
-                    .Select(p => new ParamInfo()
-                    {
-                        ParamName = p.Name,
-                        ParamType = p.ParameterType.Name
-                    })
-                    .ToList()
-            })
-            .ToList();
-        return result.ToList();
-    }
-
     public List<ProblemData> GetProblems()
     {
         return _context.Problems.ToList();
@@ -67,15 +43,17 @@ public class ProblemController
 
     public IResult UpdateProblem(int id, string name, string description, string theme)
     {
-        var problem = new ProblemData()
-        {
-            Id = id,
-            Name = name,
-            Description = description,
-            Theme = theme
-        };
-        _context.Update(problem);
+        var problem = _context.Problems.Find(id);
+    
+        if (problem == null)
+            return Results.NotFound();
+
+        problem.Name = name;
+        problem.Description = description;
+        problem.Theme = theme;
+
         _context.SaveChanges();
         return Results.Ok();
     }
+
 }
