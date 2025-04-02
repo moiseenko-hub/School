@@ -38,7 +38,8 @@ builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<SchoolUserRepository>();
 builder.Services.AddScoped<SchoolRoleRepository>();*/
-builder.Services.AddScoped<SchoolAuthService>();
+builder.Services.AddScoped<ISchoolAuthService, SchoolAuthService>();
+builder.Services.AddScoped<IDataToViewModelMapper, DataToViewModelMapper>();
 
 builder.Services.AddHttpContextAccessor();
 var reflectionRepositories = new ReflectionRepositories();

@@ -15,14 +15,14 @@ public class LessonsController: Controller
 {
     private readonly LessonRepository _lessonRepository;
     private readonly LessonCommentRepository _commentRepository;
-    private readonly SchoolAuthService _authService;
+    private readonly ISchoolAuthService _authService;
     private IHubContext<LessonHub, ILessonHub> _hubContext; 
-    private readonly DataToViewModelMapper _dataToViewModelMapper;
+    private readonly IDataToViewModelMapper _dataToViewModelMapper;
 
     public LessonsController(
         LessonRepository lessonRepository, 
         LessonCommentRepository lessonCommentRepository,
-        SchoolAuthService authService, IHubContext<LessonHub, ILessonHub> hubContext, DataToViewModelMapper dataToViewModelMapper)
+        ISchoolAuthService authService, IHubContext<LessonHub, ILessonHub> hubContext, IDataToViewModelMapper dataToViewModelMapper)
     {
         _lessonRepository = lessonRepository;
         _commentRepository = lessonCommentRepository;

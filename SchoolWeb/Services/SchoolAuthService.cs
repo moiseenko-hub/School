@@ -3,7 +3,7 @@ using StoreData.Repostiroties;
 
 namespace WebStoryFroEveryting.Services;
 
-public class SchoolAuthService
+public class SchoolAuthService : ISchoolAuthService
 {
      public const string AUTH_TYPE = "SchoolAuthType";
             public const string CLAIM_KEY_ID = "Id";
@@ -26,11 +26,7 @@ public class SchoolAuthService
                 return userName;
             }
     
-            public int GetUserId()
-            {
-                var idStr = GetClaim(CLAIM_KEY_ID);
-                return int.Parse(idStr);
-            }
+          
         
             public bool IsAuthenticated()
             {
@@ -67,5 +63,11 @@ public class SchoolAuthService
             public string? GetRoleName()
             {
                 return _userRepository.Get(GetUserId()).Role?.Name;
+            }
+
+            public int GetUserId()
+            {
+                var idStr = GetClaim(CLAIM_KEY_ID);
+                return int.Parse(idStr);
             }
 }
