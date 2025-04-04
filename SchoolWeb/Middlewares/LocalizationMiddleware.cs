@@ -1,6 +1,7 @@
 using System.Globalization;
 using Enums.SchoolUser;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Services;
 
 namespace WebStoryFroEveryting.Middlewares;
@@ -16,7 +17,7 @@ public class LocalizationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var authService = context.RequestServices.GetRequiredService<SchoolAuthService>();
+        var authService = context.RequestServices.GetRequiredService<ISchoolAuthService>();
 
         if (!authService.IsAuthenticated())
         {
@@ -24,7 +25,7 @@ public class LocalizationMiddleware
             return;
         }
 
-        var usersRepository = context.RequestServices.GetRequiredService<SchoolUserRepository>();
+        var usersRepository = context.RequestServices.GetRequiredService<ISchoolUserRepository>();
         CultureInfo culture;
         switch (usersRepository.GetLocale(authService.GetUserId()))
         {
@@ -35,11 +36,12 @@ public class LocalizationMiddleware
                 culture = new CultureInfo("ru-RU");
                 break;
             default:
-                throw new Exception("Unknown local");
+                throw new Exception("Unknown locale");
         }
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = culture;
 
         await _next(context);
     }
+
 }

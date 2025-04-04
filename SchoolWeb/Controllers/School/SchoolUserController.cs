@@ -10,25 +10,28 @@ using Microsoft.AspNetCore.Hosting;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using WebStoryFroEveryting.Services;
 using Microsoft.AspNetCore.Mvc.Routing;
+using StoreData.Repostiroties.School;
 
 namespace WebStoryFroEveryting.Controllers;
 
 public class SchoolUserController : Controller
 {
-    private readonly SchoolUserRepository _schoolUserRepository;
-    private readonly SchoolRoleRepository _schoolRoleRepository;
+    private readonly ISchoolUserRepository _schoolUserRepository;
+    private readonly ISchoolRoleRepository _schoolRoleRepository;
     private readonly IHostingEnvironment _hostingEnvironment;
-    private readonly SchoolAuthService _schoolAuthService;
+    private readonly ISchoolAuthService _schoolAuthService;
+    private readonly IProfileService _profileService;
 
-    public SchoolUserController(SchoolUserRepository schoolUserRepository,
-        SchoolRoleRepository schoolRoleRepository,
+    public SchoolUserController(ISchoolUserRepository schoolUserRepository,
+        ISchoolRoleRepository schoolRoleRepository,
         IHostingEnvironment hostingEnvironment,
-        SchoolAuthService schoolAuthService)
+        ISchoolAuthService schoolAuthService, IProfileService profileService)
     {
         _schoolUserRepository = schoolUserRepository;
         _schoolRoleRepository = schoolRoleRepository;
         _hostingEnvironment = hostingEnvironment;
         _schoolAuthService = schoolAuthService;
+        _profileService = profileService;
     }
 
     [HttpGet]
@@ -81,15 +84,9 @@ public class SchoolUserController : Controller
     [HttpPost]
     public IActionResult UpdateAvatar(IFormFile avatar)
     {
-        var webRootPath = _hostingEnvironment.WebRootPath;
-        var userId = _schoolAuthService.GetUserId();
-        var fileName = $"avatar-{userId}.jpg";
-        var path = Path.Combine(webRootPath, "avatars", fileName);
-        using (var fileStream = new FileStream(path, FileMode.Create))
-        {
-            avatar.CopyTo(fileStream);
-        }
-        return RedirectToAction(nameof(Profile));
+        return _profileService.UpdateAvatar(avatar)
+            ? RedirectToAction(nameof(Profile)) // ModelStateError
+            : RedirectToAction(nameof(Profile));
     }
     
 

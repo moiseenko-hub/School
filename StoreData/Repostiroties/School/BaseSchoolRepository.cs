@@ -1,32 +1,33 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData.Models;
+using StoreData.Repostiroties.School;
 
 namespace StoreData.Repostiroties;
 
-public abstract class BaseSchoolRepository<DbModel> where DbModel : BaseModel
+public abstract class BaseSchoolRepository<TDbModel> : IBaseSchoolRepository<TDbModel> where TDbModel : BaseModel
 {
     protected SchoolDbContext _dbContext;
-    protected DbSet<DbModel> _dbSet;
+    protected DbSet<TDbModel> _dbSet;
 
     public BaseSchoolRepository(SchoolDbContext dbContext)
     {
         _dbContext = dbContext;
-        _dbSet = _dbContext.Set<DbModel>();
+        _dbSet = _dbContext.Set<TDbModel>();
     }
     
-    public virtual DbModel Get(int id)
+    public virtual TDbModel Get(int id)
     {
         return _dbSet
             .AsNoTracking()
             .First(x => x.Id == id);
     }
 
-    public virtual List<DbModel> GetAll()
+    public virtual List<TDbModel> GetAll()
     {
         return _dbSet.ToList();
     }
 
-    public virtual void Add(DbModel item)
+    public virtual void Add(TDbModel item)
     {
         _dbSet.Add(item);
         _dbContext.SaveChanges();
@@ -39,7 +40,7 @@ public abstract class BaseSchoolRepository<DbModel> where DbModel : BaseModel
         _dbContext.SaveChanges();
     }
 
-    public virtual void Update(DbModel model)
+    public virtual void Update(TDbModel model)
     {
         _dbSet.Update(model);
         _dbContext.SaveChanges();

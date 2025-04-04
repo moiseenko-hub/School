@@ -8,7 +8,7 @@ namespace WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
 public class HasPermissionAttribute : ActionFilterAttribute
 {
     private readonly SchoolPermission _permission;
-    private SchoolAuthService _schoolAuthService;
+    private ISchoolAuthService _schoolAuthService;
 
     public HasPermissionAttribute(SchoolPermission permission)
     {
@@ -20,7 +20,7 @@ public class HasPermissionAttribute : ActionFilterAttribute
         _schoolAuthService = context
             .HttpContext
             .RequestServices
-            .GetRequiredService<SchoolAuthService>();
+            .GetRequiredService<ISchoolAuthService>();
         if (!_schoolAuthService.HasPermission(_permission))
         {
             context.Result = new ForbidResult();

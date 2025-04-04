@@ -19,7 +19,7 @@ public class IsRoleAttribute : ActionFilterAttribute
         var roleName = context
             .HttpContext
             .RequestServices
-            .GetRequiredService<SchoolAuthService>()
+            .GetRequiredService<ISchoolAuthService>()
             .GetRoleName();
         if (!_roles.Contains(roleName!))
         {

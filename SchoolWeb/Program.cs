@@ -12,7 +12,6 @@ using WebStoryFroEveryting.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services
     .AddAuthentication(SchoolAuthService.AUTH_TYPE)
     .AddCookie(SchoolAuthService.AUTH_TYPE, config =>
@@ -26,24 +25,28 @@ builder.Services.AddSignalR();
 builder.Services
     .AddDbContext<SchoolDbContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
-//builder.Services.AddScoped<LessonRepository>();
 
-/*builder.Services.AddScoped<LessonRepository>();
-builder.Services.AddScoped<LessonCommentRepository>();
-builder.Services.AddScoped<BanWordRepository>();
-builder.Services.AddScoped<BannedUserRepository>();
-builder.Services.AddScoped<MessageRepository>();
+// var reflectionRepositories = new ReflectionRepositories();
+// reflectionRepositories.AddReflectionRepositories(builder.Services);
 
-builder.Services.AddScoped<LessonRepository>();
 
-builder.Services.AddScoped<SchoolUserRepository>();
-builder.Services.AddScoped<SchoolRoleRepository>();*/
-builder.Services.AddScoped<SchoolAuthService>();
+builder.Services.AddScoped<ISchoolRoleRepository, SchoolRoleRepository>();
+
+
+builder.Services.AddScoped<ISchoolUserRepository, SchoolUserRepository>();
+
+
+builder.Services.AddScoped<ISchoolAuthService, SchoolAuthService>();
+builder.Services.AddScoped<IDataToViewModelMapper, DataToViewModelMapper>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+
+builder.Services.AddScoped<IBannedUserRepository, BannedUserRepository>();
+builder.Services.AddScoped<IBanWordRepository, BanWordRepository>();
+builder.Services.AddScoped<ILessonCommentRepository, LessonCommentRepository>();
+builder.Services.AddScoped<ILessonRepository, LessonRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 builder.Services.AddHttpContextAccessor();
-var reflectionRepositories = new ReflectionRepositories();
-reflectionRepositories.AddReflectionRepositories(builder.Services);
-
 
 
 var app = builder.Build();

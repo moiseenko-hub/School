@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.Lessons;
 using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
@@ -13,25 +14,25 @@ namespace WebStoryFroEveryting.Controllers;
 
 public class LessonsController: Controller
 {
-    private readonly LessonRepository _lessonRepository;
-    private readonly LessonCommentRepository _commentRepository;
-    private readonly SchoolAuthService _authService;
+    private readonly ILessonRepository _lessonRepository;
+    private readonly ILessonCommentRepository _commentRepository;
+    private readonly ISchoolAuthService _authService;
     private IHubContext<LessonHub, ILessonHub> _hubContext; 
+    private readonly IDataToViewModelMapper _dataToViewModelMapper;
 
     public LessonsController(
-        LessonRepository lessonRepository, 
-        LessonCommentRepository lessonCommentRepository,
-        SchoolAuthService authService, IHubContext<LessonHub, ILessonHub> hubContext)
+        ILessonRepository lessonRepository, 
+        ILessonCommentRepository lessonCommentRepository,
+        ISchoolAuthService authService, IHubContext<LessonHub, ILessonHub> hubContext, IDataToViewModelMapper dataToViewModelMapper)
     {
         _lessonRepository = lessonRepository;
         _commentRepository = lessonCommentRepository;
         _authService = authService;
         _hubContext = hubContext;
+        _dataToViewModelMapper = dataToViewModelMapper;
     }
     public IActionResult Index()
     {
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
         var lessonsData = _lessonRepository.GetAll();
         var lessons = lessonsData
             .Select(MapToViewModel)
@@ -41,13 +42,17 @@ public class LessonsController: Controller
 
     public IActionResult Details(int id)
     {
+        if (id < 1)
+        {
+            throw new ArgumentException("Invalid id");
+        }
         var result = _lessonRepository.Get(id);
 
         if (result == null)
         {
             throw new ArgumentException("Id not found");
         }
-        return View(MapToCommentViewModel(result));
+        return View(_dataToViewModelMapper.MapToCommentViewModel(result));
     }
 
     [HttpGet]
@@ -111,27 +116,6 @@ public class LessonsController: Controller
         return RedirectToAction(nameof(Index));
     }
     
-    private LessonWithCommentViewModel MapToCommentViewModel(LessonData lessonData)
-    {
-        var commentsViewModel = lessonData.Comments
-            .Select(c => new LessonCommentViewModel()
-            {
-                Created = c.Created,
-                Description = c.Description,
-                Id = c.Id,
-                Username = c.User.Username
-            })
-            .ToList();
-        return new LessonWithCommentViewModel()
-        {
-            Id = lessonData.Id,
-            Preview = lessonData.Preview,
-            Source = lessonData.Source,
-            Title = lessonData.Title,
-            Comments = commentsViewModel,
-            IdCurrentUser = _authService.GetUserId()
-        };
-    }
     private LessonViewModel MapToViewModel(LessonData lessonData)
     {
         return new LessonViewModel()

@@ -3,7 +3,7 @@ using StoreData.Models;
 
 namespace StoreData.Repostiroties.School;
 
-public class MessageRepository : BaseSchoolRepository<MessageData>
+public class MessageRepository : BaseSchoolRepository<MessageData>, IMessageRepository
 {
     public MessageRepository(SchoolDbContext dbContext) : base(dbContext) { }
 
