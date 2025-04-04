@@ -3,11 +3,11 @@ using WebStoryFroEveryting.Models.Lessons;
 
 namespace WebStoryFroEveryting.Services;
 
-public class DataToViewModelMapper
+public class DataToViewModelMapper : IDataToViewModelMapper
 {
-    private readonly SchoolAuthService _authService;
+    private readonly ISchoolAuthService _authService;
 
-    public DataToViewModelMapper(SchoolAuthService authService)
+    public DataToViewModelMapper(ISchoolAuthService authService)
     {
         _authService = authService;
     }
@@ -34,3 +34,4 @@ public class DataToViewModelMapper
         };
     }
 }
+

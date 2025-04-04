@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.Lessons;
 using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
@@ -13,15 +14,15 @@ namespace WebStoryFroEveryting.Controllers;
 
 public class LessonsController: Controller
 {
-    private readonly LessonRepository _lessonRepository;
-    private readonly LessonCommentRepository _commentRepository;
+    private readonly ILessonRepository _lessonRepository;
+    private readonly ILessonCommentRepository _commentRepository;
     private readonly ISchoolAuthService _authService;
     private IHubContext<LessonHub, ILessonHub> _hubContext; 
     private readonly IDataToViewModelMapper _dataToViewModelMapper;
 
     public LessonsController(
-        LessonRepository lessonRepository, 
-        LessonCommentRepository lessonCommentRepository,
+        ILessonRepository lessonRepository, 
+        ILessonCommentRepository lessonCommentRepository,
         ISchoolAuthService authService, IHubContext<LessonHub, ILessonHub> hubContext, IDataToViewModelMapper dataToViewModelMapper)
     {
         _lessonRepository = lessonRepository;
@@ -32,8 +33,6 @@ public class LessonsController: Controller
     }
     public IActionResult Index()
     {
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
         var lessonsData = _lessonRepository.GetAll();
         var lessons = lessonsData
             .Select(MapToViewModel)
@@ -43,6 +42,10 @@ public class LessonsController: Controller
 
     public IActionResult Details(int id)
     {
+        if (id < 1)
+        {
+            throw new ArgumentException("Invalid id");
+        }
         var result = _lessonRepository.Get(id);
 
         if (result == null)

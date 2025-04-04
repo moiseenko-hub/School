@@ -8,11 +8,11 @@ namespace WebStoryFroEveryting.Hubs;
 
 public class ChatHub : Hub
 {
-    private readonly SchoolAuthService _authService;
-    private readonly SchoolUserRepository _userRepository;
-    private readonly MessageRepository _messageRepository;
+    private readonly ISchoolAuthService _authService;
+    private readonly ISchoolUserRepository _userRepository;
+    private readonly IMessageRepository _messageRepository;
 
-    public ChatHub(SchoolAuthService authService, SchoolUserRepository userRepository, MessageRepository messageRepository)
+    public ChatHub(ISchoolAuthService authService, ISchoolUserRepository userRepository, IMessageRepository messageRepository)
     {
         _authService = authService;
         _userRepository = userRepository;

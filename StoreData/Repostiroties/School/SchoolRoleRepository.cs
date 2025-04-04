@@ -1,9 +1,10 @@
 using Enums.SchoolUser;
 using StoreData.Models;
+using StoreData.Repostiroties.School;
 
 namespace StoreData.Repostiroties;
 
-public class SchoolRoleRepository : BaseSchoolRepository<SchoolRoleData>
+public class SchoolRoleRepository : BaseSchoolRepository<SchoolRoleData>, ISchoolRoleRepository
 {
     public SchoolRoleRepository(SchoolDbContext dbContext) : base(dbContext) { }
 

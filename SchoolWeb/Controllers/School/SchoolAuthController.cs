@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.SchoolAuth;
 using WebStoryFroEveryting.Services;
 
@@ -9,9 +10,9 @@ namespace WebStoryFroEveryting.Controllers;
 
 public class SchoolAuthController : Controller
 {
-     private SchoolUserRepository _userRepository;
+     private ISchoolUserRepository _userRepository;
     
-            public SchoolAuthController(SchoolUserRepository userRepository)
+            public SchoolAuthController(ISchoolUserRepository userRepository)
             {
                 _userRepository = userRepository;
             }

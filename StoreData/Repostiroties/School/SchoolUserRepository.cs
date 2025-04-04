@@ -7,11 +7,11 @@ using StoreData.Repostiroties.School;
 
 namespace StoreData.Repostiroties;
 
-public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
+public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>, ISchoolUserRepository
 {
-    private readonly SchoolRoleRepository _schoolRoleRepository;
-    private readonly BannedUserRepository _bannedUserRepository;
-    public SchoolUserRepository(SchoolDbContext dbContext, SchoolRoleRepository schoolRoleRepository, BannedUserRepository bannedUserRepository) : base(dbContext)
+    private readonly ISchoolRoleRepository _schoolRoleRepository;
+    private readonly IBannedUserRepository _bannedUserRepository;
+    public SchoolUserRepository(SchoolDbContext dbContext, ISchoolRoleRepository schoolRoleRepository, IBannedUserRepository bannedUserRepository) : base(dbContext)
     {
         _schoolRoleRepository = schoolRoleRepository;
         _bannedUserRepository = bannedUserRepository;

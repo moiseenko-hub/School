@@ -2,6 +2,7 @@ using Enums.SchoolUser;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.SchoolUser;
 using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
 
@@ -9,9 +10,9 @@ namespace WebStoryFroEveryting.Controllers;
 
 public class SchoolRolesController : Controller
 {
-    private readonly SchoolRoleRepository _schoolRoleRepository;
+    private readonly ISchoolRoleRepository _schoolRoleRepository;
 
-    public SchoolRolesController(SchoolRoleRepository schoolRoleRepository)
+    public SchoolRolesController(ISchoolRoleRepository schoolRoleRepository)
     {
         _schoolRoleRepository = schoolRoleRepository;
     }

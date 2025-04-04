@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.Lessons;
 
 namespace WebStoryFroEveryting.Controllers.ApiControllers;
@@ -9,10 +10,10 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers;
 [ApiController]
 public class CommentController : ControllerBase
 {
-    private readonly LessonCommentRepository _commentRepository;
-    private readonly SchoolUserRepository _userRepository;
+    private readonly ILessonCommentRepository _commentRepository;
+    private readonly ISchoolUserRepository _userRepository;
 
-    public CommentController(LessonCommentRepository commentRepository, SchoolUserRepository userRepository)
+    public CommentController(ILessonCommentRepository commentRepository, ISchoolUserRepository userRepository)
     {
         _commentRepository = commentRepository;
         _userRepository = userRepository;

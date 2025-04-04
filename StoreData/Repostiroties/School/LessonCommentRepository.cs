@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData.Models;
+using StoreData.Repostiroties.School;
 
 namespace StoreData.Repostiroties;
 
-public class LessonCommentRepository : BaseSchoolRepository<LessonCommentData>
+public class LessonCommentRepository : BaseSchoolRepository<LessonCommentData>, ILessonCommentRepository
 {
     public LessonCommentRepository(SchoolDbContext dbContext) : base(dbContext) { }
 

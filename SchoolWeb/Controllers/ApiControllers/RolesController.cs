@@ -1,6 +1,7 @@
 using Enums.SchoolUser;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.Lessons;
 
 namespace WebStoryFroEveryting.Controllers.ApiControllers;
@@ -9,9 +10,9 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers;
 [ApiController]
 public class RolesController : ControllerBase
 {
-    private readonly SchoolRoleRepository _roleRepository;
+    private readonly ISchoolRoleRepository _roleRepository;
 
-    public RolesController(SchoolRoleRepository roleRepository)
+    public RolesController(ISchoolRoleRepository roleRepository)
     {
         _roleRepository = roleRepository;
     }

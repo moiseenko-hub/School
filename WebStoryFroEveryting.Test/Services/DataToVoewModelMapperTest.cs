@@ -8,22 +8,31 @@ namespace WebStoryFroEveryting.Test;
 
 public class DataToVoewModelMapperTest
 {
+    private Mock<ISchoolAuthService> authMock;
+    private ISchoolAuthService authService;
+
+    [SetUp]
+    public void Setup()
+    { 
+        authMock = new Mock<ISchoolAuthService>();
+        authService = authMock.Object;
+    }
+    
     [Test]
-    public void Test()
+    [TestCase(1, "title", "preview", "source", Level.Beginner, 1)]
+    public void CheckViewModelTest(int id,string title, string preview, string source, Level level, int idCurrentUser)
     {
         //Prepare
-        var authMock = new Mock<ISchoolAuthService>();
+        var lessonDataMock = new Mock<LessonData>();
         authMock
             .Setup(x => x.GetUserId())
-            .Returns(1);
-        var authService = authMock.Object;
-        var lessonDataMock = new Mock<LessonData>();
+            .Returns(idCurrentUser);
         var lessonData = lessonDataMock.Object;
-        lessonData.Title = "title";
-        lessonData.Preview = "preview";
-        lessonData.Id = 1;
-        lessonData.Source = "source";
-        lessonData.Level = Level.Beginner;
+        lessonData.Title = title;
+        lessonData.Preview = preview;
+        lessonData.Id = id;
+        lessonData.Source = source;
+        lessonData.Level = level;
         
         var dataToViewModel = new DataToViewModelMapper(authService);
 
@@ -33,11 +42,11 @@ public class DataToVoewModelMapperTest
 
         //Assert
         
-        Assert.That(result.IdCurrentUser, Is.EqualTo(1));
-        Assert.That(result.Title, Is.EqualTo("title"));
-        Assert.That(result.Preview, Is.EqualTo("preview"));
-        Assert.That(result.Id, Is.EqualTo(1));
-        Assert.That(result.Source, Is.EqualTo("source"));
-        Assert.That(result.Level, Is.EqualTo(Level.Beginner));
+        Assert.That(result.IdCurrentUser, Is.EqualTo(idCurrentUser));
+        Assert.That(result.Title, Is.EqualTo(lessonData.Title));
+        Assert.That(result.Preview, Is.EqualTo(lessonData.Preview));
+        Assert.That(result.Id, Is.EqualTo(lessonData.Id));
+        Assert.That(result.Source, Is.EqualTo(lessonData.Source));
+        Assert.That(result.Level, Is.EqualTo(lessonData.Level));
     }
 }

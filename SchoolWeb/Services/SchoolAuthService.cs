@@ -1,5 +1,6 @@
 using Enums.SchoolUser;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 
 namespace WebStoryFroEveryting.Services;
 
@@ -11,9 +12,9 @@ public class SchoolAuthService : ISchoolAuthService
             public const string CLAIM_KEY_PERMISSION = "Permission";
     
             private IHttpContextAccessor _contextAccessor;
-            private readonly SchoolUserRepository _userRepository;
+            private readonly ISchoolUserRepository _userRepository;
     
-            public SchoolAuthService(IHttpContextAccessor contextAccessor, SchoolUserRepository userRepository)
+            public SchoolAuthService(IHttpContextAccessor contextAccessor,ISchoolUserRepository userRepository)
             {
                 _contextAccessor = contextAccessor;
                 _userRepository = userRepository;
