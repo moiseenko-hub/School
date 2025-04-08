@@ -6,10 +6,7 @@ namespace WebStoryFroEveryting.Services;
 
 public class SchoolAuthService : ISchoolAuthService
 {
-     public const string AUTH_TYPE = "SchoolAuthType";
-            public const string CLAIM_KEY_ID = "Id";
-            public const string CLAIM_KEY_NAME = "Name";
-            public const string CLAIM_KEY_PERMISSION = "Permission";
+    
     
             private IHttpContextAccessor _contextAccessor;
             private readonly ISchoolUserRepository _userRepository;
@@ -22,7 +19,7 @@ public class SchoolAuthService : ISchoolAuthService
     
             public string GetUserName()
             {
-                var userName = GetClaim(CLAIM_KEY_NAME)
+                var userName = GetClaim(SchoolAuthConstans.CLAIM_KEY_NAME)
                     ?? "Guest";
                 return userName;
             }
@@ -41,7 +38,7 @@ public class SchoolAuthService : ISchoolAuthService
         
             public bool HasPermission(SchoolPermission permisson)
             {
-                var permissionInt = int.Parse(GetClaim(CLAIM_KEY_PERMISSION));
+                var permissionInt = int.Parse(GetClaim(SchoolAuthConstans.CLAIM_KEY_PERMISSION)!);
                 if (permissionInt < 0)
                 {
                     return false;
@@ -63,12 +60,17 @@ public class SchoolAuthService : ISchoolAuthService
 
             public string? GetRoleName()
             {
-                return _userRepository.Get(GetUserId()).Role?.Name;
+                var user = _userRepository.Get(GetUserId());
+                if (user == null)
+                {
+                    return "Guest";
+                }
+                return user.Role?.Name ?? "Guest";
             }
 
             public int GetUserId()
             {
-                var idStr = GetClaim(CLAIM_KEY_ID);
-                return int.Parse(idStr);
+                var idStr = GetClaim(SchoolAuthConstans.CLAIM_KEY_ID);
+                return idStr == null ? 0 : int.Parse(idStr);
             }
 }

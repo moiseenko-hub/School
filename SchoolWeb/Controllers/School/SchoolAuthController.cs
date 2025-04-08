@@ -38,13 +38,13 @@ public class SchoolAuthController : Controller
 
             var claims = new List<Claim>
                 {
-                    new Claim(SchoolAuthService.CLAIM_KEY_ID, user.Id.ToString()),
-                    new Claim(SchoolAuthService.CLAIM_KEY_NAME, user.Username.ToString()),
-                    new Claim(SchoolAuthService.CLAIM_KEY_PERMISSION, ((int?)user.Role?.Permission ?? -1).ToString()),
-                    new Claim(ClaimTypes.AuthenticationMethod, SchoolAuthService.AUTH_TYPE)
+                    new Claim(SchoolAuthConstans.CLAIM_KEY_ID, user.Id.ToString()),
+                    new Claim(SchoolAuthConstans.CLAIM_KEY_NAME, user.Username.ToString()),
+                    new Claim(SchoolAuthConstans.CLAIM_KEY_PERMISSION, ((int?)user.Role?.Permission ?? -1).ToString()),
+                    new Claim(ClaimTypes.AuthenticationMethod, SchoolAuthConstans.AUTH_TYPE)
                 };
 
-            var identity = new ClaimsIdentity(claims, SchoolAuthService.AUTH_TYPE);
+            var identity = new ClaimsIdentity(claims, SchoolAuthConstans.AUTH_TYPE);
 
             var principal = new ClaimsPrincipal(identity);
 

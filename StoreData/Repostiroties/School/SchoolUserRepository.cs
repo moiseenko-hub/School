@@ -51,7 +51,7 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>, ISchoo
     {
         return _dbSet
             .Include(u => u.Role)
-            .First(u => u.Id == id);
+            .FirstOrDefault(u => u.Id == id);
     }
 
     public void Registration(string username, string email, string password)

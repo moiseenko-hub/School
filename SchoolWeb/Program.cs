@@ -13,8 +13,8 @@ using WebStoryFroEveryting.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddAuthentication(SchoolAuthService.AUTH_TYPE)
-    .AddCookie(SchoolAuthService.AUTH_TYPE, config =>
+    .AddAuthentication(SchoolAuthConstans.AUTH_TYPE)
+    .AddCookie(SchoolAuthConstans.AUTH_TYPE, config =>
     {
         config.LoginPath = "/SchoolAuth/Login";
     });
@@ -34,7 +34,6 @@ builder.Services.AddScoped<ISchoolRoleRepository, SchoolRoleRepository>();
 
 
 builder.Services.AddScoped<ISchoolUserRepository, SchoolUserRepository>();
-
 
 builder.Services.AddScoped<ISchoolAuthService, SchoolAuthService>();
 builder.Services.AddScoped<IDataToViewModelMapper, DataToViewModelMapper>();
@@ -65,8 +64,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Who you are?
-app.UseAuthorization();  // May I in?
+app.UseAuthentication(); 
+app.UseAuthorization();  
 app.MapHub<ChatHub>("/hub/chat");
 app.MapHub<LessonHub>("/hub/lesson");
 

@@ -39,7 +39,7 @@ public class LessonsController: Controller
             .ToList();
         return View(lessons);
     }
-
+    
     public IActionResult Details(int id)
     {
         if (id < 1)
@@ -50,7 +50,7 @@ public class LessonsController: Controller
 
         if (result == null)
         {
-            throw new ArgumentException("Id not found");
+            return NotFound("Id not found");
         }
         return View(_dataToViewModelMapper.MapToCommentViewModel(result));
     }
@@ -78,14 +78,6 @@ public class LessonsController: Controller
             .All
             .Newlesson(lessonViewModel);
         return RedirectToAction(nameof(Index));
-    }
-    
-    [HttpPost]
-    [HasPermission(SchoolPermission.CanAddComment)]
-    public IActionResult CreateComment(int lessonId,int userId, string description)
-    {
-        _commentRepository.AddComment(lessonId,userId, description);
-        return RedirectToAction(nameof(Details), new { id = lessonId });
     }
 
     [HasPermission(SchoolPermission.CanDeleteLesson)]

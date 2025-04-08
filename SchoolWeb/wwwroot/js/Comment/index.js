@@ -29,7 +29,9 @@ $(document).ready(function () {
             })
             .fail(function (error) {
                 console.error("Ошибка при добавлении комментария:", error);
-                alert("Произошла ошибка при добавлении комментария.");
+                if(error.status === 401) {
+                    window.location.href = "/SchoolAuth/Login";
+                }
             });
     });
 });
