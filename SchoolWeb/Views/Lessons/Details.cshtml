@@ -1,4 +1,4 @@
-@inject SchoolAuthService authService
+@inject ISchoolAuthService authService
 @{
     Layout = "_LayoutLessons";
 }
@@ -28,7 +28,7 @@
 
     
 <div class="comments-section" data-lesson-id = "@Model.Id" data-user-id = "@Model.IdCurrentUser">
-    <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id" asp-route-userId="@Model.IdCurrentUser"  class="comment-form">
+    <form method="post" class="comment-form">
         <textarea name="description" placeholder="Ваш комментарий" id="description"></textarea>
         <button type="submit" id="comment-submit">Создать</button>
     </form>

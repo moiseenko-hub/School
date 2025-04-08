@@ -6,14 +6,12 @@
 <html>
 <head>
     <link href="~/css/Lessons/header.css" rel="stylesheet" />
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js" integrity="sha512-7SRCYIJtR6F8ocwW7UxW6wGKqbSyqREDbfCORCbGLatU0iugBLwyOXpzhkPyHIFdBO0K2VCu57fvP2Twgx1o2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/chat.js"></script>
     <script src="/js/index.js"></script>
     @await RenderSectionAsync("Styles", false)
     </head>
-
 <body>
 <div class="header">
     <div id="notification" class="notification">
@@ -21,19 +19,29 @@
     </div>
     <ul class="header-items">
         <li>@_authService.GetUserName()</li>
-        <li><a href="/Lessons" class="header-item">e</a></li>
+        <li><a href="/Lessons" class="header-item">Home</a></li>
         <li><a href="/Problem/Index" class="header-item">Задачи</a></li>
         <li><a href="#" class="header-item">Контакты</a></li>
-        <li><a href="/SchoolAuth/Login">@Home.Index_SignIn</a></li>
-        <li><a href="/SchoolAuth/Registration">Регистрация</a></li>
-        <li><a href="/SchoolAuth/Logout">Выйти</a></li>
-        <li><a href="/SchoolUser/PotentialBannedUsers">Потенциальный бан</a></li>
-        <li><a href="/SchoolUser/Index">Пользователи</a></li>
-        <li><a href="/SchoolUser/Profile">Профиль</a></li>
-        <li><a href="/Reflection/Index">Все методы</a></li>
-        <li><a>Выйти</a></li>
-        <li><a href="/Lessons/Create" class="add-button header-item"><i class="fas fa-plus"></i>+</a></li>
-        <li><a href="/SchoolRoles/">Roles</a></li>
+        
+        @if (_authService.IsAuthenticated())
+        {
+            <li><a href="/SchoolAuth/Logout">Выйти</a></li>
+        }
+        else
+        {
+            <li><a href="/SchoolAuth/Login">@Home.Index_SignIn</a></li>
+            <li><a href="/SchoolAuth/Registration">Регистрация</a></li>
+        }
+        
+        @if (_authService.GetRoleName() == "Admin")
+        {
+            <li><a href="/SchoolUser/PotentialBannedUsers">Потенциальный бан</a></li>
+            <li><a href="/SchoolUser/Index">Пользователи</a></li>
+            <li><a href="/SchoolUser/Profile">Профиль</a></li>
+            <li><a href="/Reflection/Index">Все методы</a></li>
+            <li><a href="/Lessons/Create" class="add-button header-item"><i class="fas fa-plus"></i>+</a></li>
+            <li><a href="/SchoolRoles/">Roles</a></li>
+        }
     </ul>
 </div>
 <div class="content">

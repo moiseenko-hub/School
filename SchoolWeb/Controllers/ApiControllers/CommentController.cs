@@ -3,6 +3,7 @@ using StoreData.Models;
 using StoreData.Repostiroties;
 using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.Lessons;
+using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
 
 namespace WebStoryFroEveryting.Controllers.ApiControllers;
 
@@ -18,7 +19,8 @@ public class CommentController : ControllerBase
         _commentRepository = commentRepository;
         _userRepository = userRepository;
     }
-
+    
+    [IsAuthenticated]
     public LessonCommentViewModel Create([FromForm] ApiCommentViewModel viewModel)
     {
         var lessonCommentViewModel = new LessonCommentViewModel()
