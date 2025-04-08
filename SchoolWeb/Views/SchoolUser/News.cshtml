@@ -1,0 +1,19 @@
+﻿@model WebStoryFroEveryting.Models.Apis.NewsViewModel
+
+<h2>Новости о Bitcoin</h2>
+
+@if (Model != null && Model.Articles != null)
+{
+    @foreach (var article in Model.Articles)
+    {
+        <div>
+            <h3>@article.Title</h3>
+            <p>@article.Description</p>
+            <a href="@article.Url">Читать далее</a>
+        </div>
+    }
+}
+else
+{
+    <p>Новости не найдены.</p>
+}

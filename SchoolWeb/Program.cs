@@ -9,6 +9,7 @@ using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Middlewares;
 using WebStoryFroEveryting.Reflections;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.Apis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,11 @@ builder.Services.AddScoped<ISchoolRoleRepository, SchoolRoleRepository>();
 
 
 builder.Services.AddScoped<ISchoolUserRepository, SchoolUserRepository>();
+builder.Services.AddHttpClient("NewsApi", client =>
+{
+    client.BaseAddress = new Uri("https://newsapi.org/v2/");
+});
+builder.Services.AddScoped<INewsApiService, NewsApiService>();
 
 builder.Services.AddScoped<ISchoolAuthService, SchoolAuthService>();
 builder.Services.AddScoped<IDataToViewModelMapper, DataToViewModelMapper>();

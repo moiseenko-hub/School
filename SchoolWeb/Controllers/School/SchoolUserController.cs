@@ -21,17 +21,19 @@ public class SchoolUserController : Controller
     private readonly IHostingEnvironment _hostingEnvironment;
     private readonly ISchoolAuthService _schoolAuthService;
     private readonly IProfileService _profileService;
+    private readonly INewsApiService _newsApiService;
 
     public SchoolUserController(ISchoolUserRepository schoolUserRepository,
         ISchoolRoleRepository schoolRoleRepository,
         IHostingEnvironment hostingEnvironment,
-        ISchoolAuthService schoolAuthService, IProfileService profileService)
+        ISchoolAuthService schoolAuthService, IProfileService profileService, INewsApiService newsApiService)
     {
         _schoolUserRepository = schoolUserRepository;
         _schoolRoleRepository = schoolRoleRepository;
         _hostingEnvironment = hostingEnvironment;
         _schoolAuthService = schoolAuthService;
         _profileService = profileService;
+        _newsApiService = newsApiService;
     }
 
     [HttpGet]
@@ -42,6 +44,12 @@ public class SchoolUserController : Controller
             .Select(MapToViewModel)
             .ToList();
         return View(usersViewModel);
+    }
+
+    public async Task<IActionResult> News()
+    {
+        var result = await _newsApiService.GetNewsAsync();
+        return View(result);
     }
 
     public IActionResult UpdateUserRole(int id, int? roleId)
