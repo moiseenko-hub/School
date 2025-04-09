@@ -1,6 +1,13 @@
 ﻿@model WebStoryFroEveryting.Models.Apis.NewsViewModel
 
-<h2>Новости о Bitcoin</h2>
+<h2>Новости</h2>
+
+
+<form asp-action="News" method="get">
+    <input name="title"/>
+    <input type="number" name="size" value="10"/>
+    <button type="submit">Найти</button>
+</form>
 
 @if (Model != null && Model.Articles != null)
 {

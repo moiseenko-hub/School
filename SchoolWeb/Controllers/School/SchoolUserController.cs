@@ -11,6 +11,7 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using WebStoryFroEveryting.Services;
 using Microsoft.AspNetCore.Mvc.Routing;
 using StoreData.Repostiroties.School;
+using WebStoryFroEveryting.Services.Apis;
 
 namespace WebStoryFroEveryting.Controllers;
 
@@ -46,9 +47,9 @@ public class SchoolUserController : Controller
         return View(usersViewModel);
     }
 
-    public async Task<IActionResult> News()
+    public async Task<IActionResult> News(string title = NewsApiConstans.DEFAULT_Q, int size = NewsApiConstans.DEFAULT_PAGE_SIZE)
     {
-        var result = await _newsApiService.GetNewsAsync();
+        var result = await _newsApiService.GetNewsAsync(title, size);
         return View(result);
     }
 
