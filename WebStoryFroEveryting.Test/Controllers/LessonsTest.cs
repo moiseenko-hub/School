@@ -46,7 +46,7 @@ public class LessonsTest
                 new LessonData() { Id = 2, Title = "Test2" }
             ]);
         // Act
-        var result = _controller.Index() as ViewResult;
+        var result = _controller.Index(null) as ViewResult;
         // Assert
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Model, Is.Not.Null);

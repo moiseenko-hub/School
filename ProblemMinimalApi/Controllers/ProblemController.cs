@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using ProblemMinimalApi.DatabaseAccessLayer;
+using ProblemMinimalApi.Dto;
+using ProblemMinimalApi.Tests;
 
 namespace ProblemMinimalApi.Controllers;
 
@@ -18,13 +20,30 @@ public class ProblemController
         return _context.Problems.ToList();
     }
 
-    public IResult AddProblem(string name, string description, string theme)
+    public IProblemTest GetProblemTest(AnswerDto dto)
+    {
+        var problem = _context
+            .Problems
+            .Where(p => p.Id == dto.Id)!
+            .FirstOrDefault();
+        
+        var type = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .FirstOrDefault(t => 
+                t.Name == problem.TestName && 
+                typeof(IProblemTest).IsAssignableFrom(t) &&
+                !t.IsAbstract);
+        return (IProblemTest)Activator.CreateInstance(type);
+    }
+
+    public IResult AddProblem(string name, string description, string theme, string testName)
     {
         var problem = new ProblemData()
         {
             Name = name,
             Description = description,
-            Theme = theme
+            Theme = theme,
+            TestName = testName
         };
         
         _context.Problems.Add(problem);

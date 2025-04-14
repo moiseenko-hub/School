@@ -16,4 +16,9 @@ public class LessonRepository : BaseSchoolRepository<LessonData>, ILessonReposit
                 .ThenInclude(c => c.User)
             .FirstOrDefault(x => x.Id == id)!;
     }
+
+    public IQueryable<LessonData> GetLessons()
+    {
+        return _dbSet.AsQueryable();
+    }
 }
