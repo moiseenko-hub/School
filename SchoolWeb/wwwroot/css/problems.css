@@ -1,45 +1,79 @@
-﻿
-.problems {
+﻿.problems {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    gap: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .problem {
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     padding: 20px;
-    margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.name-container, .description-container, .theme-container {
-    margin-bottom: 15px;
+.name-container .name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
 }
 
-.name, .description, .theme {
-    font-family: Arial, sans-serif;
+.description-container .description {
+    font-size: 15px;
+    color: #555;
 }
 
-.name {
-    font-size: 18px;
-    font-weight: bold;
+.theme-container .theme {
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
 }
 
-.description {
-    font-size: 16px;
-    color: #666;
+/* ========== Admin форма создания задачи ========== */
+
+.new-problem {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 24px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.theme {
-    font-size: 16px;
-    color: #666;
+.new-problem input {
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
 }
 
-/* Дополнительные стили для улучшения читаемости */
-.problem p {
-    word-wrap: break-word;
+.new-problem input:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+.new-problem-button {
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.new-problem-button:hover {
+    background-color: #005fcc;
 }

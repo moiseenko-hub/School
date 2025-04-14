@@ -1,26 +1,36 @@
-
 @model WebStoryFroEveryting.Models.SchoolAuth.SchoolAuthViewModel
 
 @{
-    Layout = "_LayoutLessons";
-}
-@if (ViewData.ModelState.ContainsKey("NotFound") && ViewData.ModelState["NotFound"].Errors.Count > 0)
-{
-    <div class="text-danger">
-        @ViewData.ModelState["NotFound"].Errors[0].ErrorMessage
-    </div>
+Layout = "_LayoutLessons";
 }
 
-<form method="post" action="/SchoolAuth/Login">
-    <div>
-        @Html.TextBoxFor(x => x.Username, new { placeholder = "UserName", required = true })
-        @Html.ValidationMessageFor(x => x.Username);
+@section Styles {
+<link href="~/css/Lessons/login.css" rel="stylesheet" />
+}
+
+<div class="login-container">
+    @if (ViewData.ModelState.ContainsKey("NotFound") && ViewData.ModelState["NotFound"].Errors.Count > 0)
+    {
+    <div class="error-message">
+        @ViewData.ModelState["NotFound"].Errors[0].ErrorMessage
     </div>
-    <div>
-        @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @type = "password", required = true })
-        @Html.ValidationMessageFor(x => x.Password);
-    </div>
-    <div>
-        <button type="submit">Логин</button>
-    </div>
-</form>
+    }
+
+    <form method="post" action="/SchoolAuth/Login" class="login-form">
+        <h2 class="form-title">Вход в систему</h2>
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Username, new { placeholder = "Имя пользователя", @class = "input-field", required = true })
+            @Html.ValidationMessageFor(x => x.Username, null, new { @class = "validation-message" })
+        </div>
+
+        <div class="form-group">
+            @Html.TextBoxFor(x => x.Password, new { placeholder = "Пароль", type = "password", @class = "input-field", required = true })
+            @Html.ValidationMessageFor(x => x.Password, null, new { @class = "validation-message" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="login-button">Войти</button>
+        </div>
+    </form>
+</div>

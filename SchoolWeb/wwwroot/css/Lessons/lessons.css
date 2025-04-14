@@ -69,3 +69,12 @@
         width: calc(100% - 20px); /* 1 элемент в строке на маленьких экранах */
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    gap: 16px;
+}
+

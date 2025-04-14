@@ -31,13 +31,15 @@ public class LessonsController: Controller
         _hubContext = hubContext;
         _dataToViewModelMapper = dataToViewModelMapper;
     }
-    public IActionResult Index()
+    public IActionResult Index(int? page)
     {
-        var lessonsData = _lessonRepository.GetAll();
-        var lessons = lessonsData
+        const int pageSize = 8;
+        var lessonsData = _lessonRepository.GetLessons();
+        var paginateLessons = new PaginatedList<LessonData>(lessonsData, page ?? 0, pageSize);
+        var lessons = paginateLessons
             .Select(MapToViewModel)
             .ToList();
-        return View(lessons);
+        return View(paginateLessons);
     }
     
     public IActionResult Details(int id)

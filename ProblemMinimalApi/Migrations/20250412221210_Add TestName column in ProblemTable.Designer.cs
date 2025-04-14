@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProblemMinimalApi.DatabaseAccessLayer;
 
@@ -10,9 +11,11 @@ using ProblemMinimalApi.DatabaseAccessLayer;
 namespace ProblemMinimalApi.Migrations
 {
     [DbContext(typeof(ProblemDbContext))]
-    partial class ProblemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250412221210_Add TestName column in ProblemTable")]
+    partial class AddTestNamecolumninProblemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

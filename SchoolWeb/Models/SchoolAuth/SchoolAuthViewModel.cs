@@ -6,11 +6,11 @@ namespace WebStoryFroEveryting.Models.SchoolAuth;
 public class SchoolAuthViewModel
 {
     [UniqueUsername]
-    [Required(ErrorMessage = "Введите имя пользователя.")]
+    [Required(ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.")]
     public string Username { get; set; }
     public string Email { get; set; }
 
     [DataType(DataType.Password)]
-    [Required(ErrorMessage = "Введите пароль.")]
+    [Required(ErrorMessage = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.")]
     public string Password { get; set; }
 }

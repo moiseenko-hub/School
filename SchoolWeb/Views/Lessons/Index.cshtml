@@ -3,23 +3,46 @@
 }
 @using WebStoryFroEveryting.Models.Lessons
 @using WebStoryFroEveryting.Controllers
-@model List<LessonViewModel>
+@model WebStoryFroEveryting.Services.PaginatedList<StoreData.Models.LessonData>
 
 @section Styles{
       <link href="css/Lessons/lessons.css" rel="stylesheet" />
 }
 <div class="lessons-container">
     @foreach (var lesson in @Model)
-        {
-            <div class="lesson">
-                <div class="image-container">
-                    <img src="@lesson.Preview"/>
-                </div>
-                <div class="lesson-title">@lesson.Title</div>
-                <div class="button">
-                    @Html.ActionLink("Подробнее...", "Details", "Lessons",new {id = @lesson.Id})
-                </div>
-                
+    {
+        <div class="lesson">
+            <div class="image-container">
+                <img src="@lesson.Preview"/>
             </div>
-        }
+            <div class="lesson-title">@lesson.Title</div>
+            <div class="button">
+                @Html.ActionLink("Подробнее...", "Details", "Lessons",new {id = @lesson.Id})
+            </div>
+                
+        </div>
+    }
 </div>
+
+
+<div class="pagination">
+    @if (Model.HasPreviousPage)
+    {
+    <a href="@Url.Action("Index", new { page = Model.PageIndex - 1 })" class="nav-arrow">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    }
+    @for (var i = 0; i < Model.TotalPages; i++)
+    {
+        <a href="@Url.Action("Index", new { page = @i})">@(i+1)</a>
+    }
+    @if (Model.HasNextPage)
+    {
+    <a href="@Url.Action("Index", new { page = Model.PageIndex + 1 })" class="nav-arrow">
+        <i class="fas fa-arrow-right"></i>
+    </a>
+    }
+    
+</div>
+
+

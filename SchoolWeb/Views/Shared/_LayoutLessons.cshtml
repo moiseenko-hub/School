@@ -6,12 +6,12 @@
 <html>
 <head>
     <link href="~/css/Lessons/header.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js" integrity="sha512-7SRCYIJtR6F8ocwW7UxW6wGKqbSyqREDbfCORCbGLatU0iugBLwyOXpzhkPyHIFdBO0K2VCu57fvP2Twgx1o2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/js/chat.js"></script>
     <script src="/js/index.js"></script>
     @await RenderSectionAsync("Styles", false)
-    </head>
+</head>
 <body>
 <div class="header">
     <div id="notification" class="notification">
@@ -22,46 +22,46 @@
         <li><a href="/Lessons" class="header-item">Home</a></li>
         <li><a href="/Problem/Index" class="header-item">Задачи</a></li>
         <li><a href="#" class="header-item">Контакты</a></li>
-        
+
         @if (_authService.IsAuthenticated())
         {
-            <li><a href="/SchoolAuth/Logout">Выйти</a></li>
+        <li><a href="/SchoolAuth/Logout" class="auth-link">Выйти</a></li>
         }
         else
         {
-            <li><a href="/SchoolAuth/Login">@Home.Index_SignIn</a></li>
-            <li><a href="/SchoolAuth/Registration">Регистрация</a></li>
+        <li><a href="/SchoolAuth/Login" class="auth-link">@Home.Index_SignIn</a></li>
+        <li><a href="/SchoolAuth/Registration" class="auth-link">Регистрация</a></li>
         }
-        
+
         @if (_authService.GetRoleName() == "Admin")
         {
-            <li><a href="/SchoolUser/PotentialBannedUsers">Потенциальный бан</a></li>
-            <li><a href="/SchoolUser/Index">Пользователи</a></li>
-            <li><a href="/SchoolUser/Profile">Профиль</a></li>
-            <li><a href="/Reflection/Index">Все методы</a></li>
-            <li><a href="/Lessons/Create" class="add-button header-item"><i class="fas fa-plus"></i>+</a></li>
-            <li><a href="/SchoolRoles/">Roles</a></li>
+        <li><a href="/SchoolUser/PotentialBannedUsers" class="header-item">Потенциальный бан</a></li>
+        <li><a href="/SchoolUser/Index" class="header-item">Пользователи</a></li>
+        <li><a href="/SchoolUser/Profile" class="header-item">Профиль</a></li>
+        <li><a href="/Reflection/Index" class="header-item">Все методы</a></li>
+        <li><a href="/Lessons/Create" class="add-button header-item"><i class="fas fa-plus"></i>+</a></li>
+        <li><a href="/SchoolRoles/" class="header-item">Roles</a></li>
         }
     </ul>
 </div>
+
 <div class="content">
     @RenderBody()
 </div>
-<div class="chat">
-    <div class="messages">
-        <div class="message">
-            <span class="author">User</span>
-            <span class="text">Some text</span>
-        </div>
-    </div>
-    <div class="new-message-container">
-        <input class="new-message" type="text"/>
-        <button class="send-new-message">Send</button>
-    </div>
-</div>
 
-<script src="/js/Comment/index.js"></script>
-<script src="/js/UserRole/index.js"></script>
-
+<footer class="footer">
+    <div class="footer-branding">
+        <i class="fas fa-lightbulb footer-icon"></i>
+        <span class="footer-title">EduSpark</span>
+        <span class="footer-by">by Андрей Моисеенко</span>
+    </div>
+    <div class="footer-socials">
+        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+</footer>
 </body>
 </html>

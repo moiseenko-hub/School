@@ -16,11 +16,16 @@ public class NewsApiService : INewsApiService
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "WebStoryForEverything/1.0");
     }
 
-    public async Task<NewsViewModel> GetNewsAsync(string q = NewsApiConstans.DEFAULT_Q, int size = NewsApiConstans.DEFAULT_PAGE_SIZE)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="q"></param>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    public async Task<NewsViewModel> GetNewsAsync(string q = NewsApiConstans.DEFAULT_Q,
+        int size = NewsApiConstans.DEFAULT_PAGE_SIZE)
     {
         var response = await _httpClient.GetAsync($"everything?q=\"{q}\"&pageSize={size}&language=en&apiKey={NewsApiConstans.TOKEN}");
-        response.EnsureSuccessStatusCode();
-
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         NewsViewModel? content = await response.Content.ReadFromJsonAsync<NewsViewModel>(options);
         return content!;
